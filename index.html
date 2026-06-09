@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmic Typer 🚀</title>
+
+  <!-- External stylesheet — all visual styles live here -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="game-wrap">
+
+    <!-- ===================== HUD ===================== -->
+    <div id="hud">
+      <div class="hud-stat">
+        <span class="hud-label">Score</span>
+        <span class="hud-val" id="score-val">0</span>
+      </div>
+      <div class="hud-stat">
+  <span class="hud-label">Accuracy</span>
+  <span class="hud-val" id="accuracy-val">100%</span>
+</div>
+
+<div class="hud-stat">
+  <span class="hud-label">WPM</span>
+  <span class="hud-val" id="wpm-val">0</span>
+</div>
+
+<div class="hud-stat">
+  <span class="hud-label">Combo</span>
+  <span class="hud-val" id="combo-val">0</span>
+</div>
+
+      <div class="hud-stat">
+        <span class="hud-label">Lives</span>
+        <div id="lives-row"></div>
+      </div>
+
+      <span id="level-badge">Level 1</span>
+
+      <div class="hud-stat">
+        <span class="hud-label">Streak</span>
+        <span class="hud-val" id="streak-val">x0</span>
+      </div>
+
+      <div class="hud-stat">
+        <span class="hud-label">Best</span>
+        <span class="hud-val" id="best-val">0</span>
+      </div>
+    </div><!-- /hud -->
+
+    <!-- ================= Game Arena ================= -->
+    <div id="arena">
+
+      <!-- Player ship -->
+      <div id="ship">🚀</div>
+
+      <!-- Laser beam (shown briefly when firing) -->
+      <div id="laser"></div>
+
+      <!-- Explosion burst (shown on destroy) -->
+      <div id="explosion">💥</div>
+
+      <!-- Combo / score popup -->
+      <div id="combo-flash"></div>
+
+      <!-- Health / shield bar at the bottom -->
+      <div id="shield-bar-wrap">
+        <div id="shield-bar"></div>
+      </div>
+
+      <!-- Pause hint -->
+      <div id="pause-hint">
+        <span class="kb">9</span> pause
+      </div>
+
+      <!-- Start / Game-Over overlay -->
+      <div id="msg-overlay">
+        <div id="msg-title">🚀 Cosmic Typer</div>
+        <div id="msg-sub">
+          Asteroids carry words — type them to destroy!<br>
+          <span style="color:rgba(255,255,255,0.7)">
+            ↑ ↓ to move &nbsp;·&nbsp; Enter or Space to fire &nbsp;·&nbsp; 9 to pause
+          </span>
+        </div>
+        <button id="msg-btn">Launch!</button>
+      </div>
+
+    </div><!-- /arena -->
+
+    <!-- ============= Typing Input Row ============== -->
+    <div id="input-row">
+      <input
+        id="type-input"
+        type="text"
+        placeholder="Type a word to target it, then press Enter or Space…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="fire-btn">Fire ⚡</button>
+    </div>
+
+    <!-- ============= Controls legend =============== -->
+    <div id="controls-bar">
+      <span><span class="kb">↑</span><span class="kb">↓</span> Move ship</span>
+      <span><span class="kb">Enter</span> / <span class="kb">Space</span> Fire</span>
+      <span><span class="kb">9</span> Pause</span>
+      <span><span class="kb">Esc</span> Clear input</span>
+    </div>
+
+  </div><!-- /game-wrap -->
+
+  <!-- External game logic — loaded after the DOM is ready -->
+  <script src="script.js"></script>
+
+</body>
+</html>

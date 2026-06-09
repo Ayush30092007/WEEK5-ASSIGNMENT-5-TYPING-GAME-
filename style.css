@@ -1,0 +1,346 @@
+/* =============================================
+   COSMIC TYPER — style.css
+   ============================================= */
+
+/* ---------- Reset & Base ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #010810;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ---------- Outer wrapper ---------- */
+#game-wrap {
+  width: 100%;
+  max-width: 760px;
+}
+
+/* ---------- HUD (score bar above arena) ---------- */
+#hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 8px;
+  background: rgba(3, 11, 26, 0.85);
+  border: 0.5px solid rgba(51, 170, 255, 0.25);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+}
+
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hud-label {
+  font-size: 11px;
+  color: #6af;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.hud-val {
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+}
+
+#level-badge {
+  background: rgba(0, 160, 255, 0.2);
+  border: 0.5px solid #3af;
+  border-radius: 20px;
+  padding: 4px 16px;
+  font-size: 13px;
+  color: #3af;
+  letter-spacing: 0.5px;
+}
+
+#lives-row {
+  display: flex;
+  gap: 4px;
+}
+
+.life {
+  font-size: 18px;
+}
+
+/* ---------- Arena (game canvas) ---------- */
+#arena {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  background: #030b1a;
+  overflow: hidden;
+  border-left: 0.5px solid rgba(51, 170, 255, 0.25);
+  border-right: 0.5px solid rgba(51, 170, 255, 0.25);
+}
+
+/* ---------- Stars ---------- */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 0.7; }
+}
+
+/* ---------- Player ship ---------- */
+#ship {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  transition: top 0.12s ease-out;
+  z-index: 10;
+  filter: drop-shadow(0 0 8px #3af);
+}
+
+/* ---------- Laser beam ---------- */
+#laser {
+  position: absolute;
+  height: 3px;
+  background: linear-gradient(to right, #3af, transparent);
+  border-radius: 2px;
+  display: none;
+  z-index: 5;
+  box-shadow: 0 0 6px #3af;
+}
+
+/* ---------- Explosion ---------- */
+#explosion {
+  position: absolute;
+  font-size: 36px;
+  display: none;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+  animation: explode 0.35s ease-out forwards;
+}
+
+@keyframes explode {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+}
+
+/* ---------- Asteroids ---------- */
+.asteroid {
+  position: absolute;
+  right: -70px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: top 0.15s;
+  user-select: none;
+}
+
+.ast-shape {
+  width: 52px;
+  height: 52px;
+  border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.ast-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.45);
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Combo / score flash ---------- */
+#combo-flash {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: 500;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ffb300;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+/* ---------- Shield / health bar ---------- */
+#shield-bar-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#shield-bar {
+  height: 100%;
+  background: #3af;
+  width: 100%;
+  transition: width 0.3s, background 0.3s;
+}
+
+/* ---------- Pause hint ---------- */
+#pause-hint {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.kb {
+  background: rgba(255, 255, 255, 0.1);
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Message overlay (start / game over) ---------- */
+#msg-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 50;
+  background: rgba(3, 11, 26, 0.88);
+}
+
+#msg-title {
+  font-size: 26px;
+  font-weight: 500;
+  color: white;
+}
+
+#msg-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  line-height: 1.8;
+}
+
+#msg-btn {
+  background: rgba(51, 170, 255, 0.2);
+  border: 0.5px solid #3af;
+  color: #3af;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#msg-btn:hover  { background: rgba(51, 170, 255, 0.35); }
+#msg-btn:active { transform: scale(0.97); }
+
+/* ---------- Input row (below arena) ---------- */
+#input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(3, 11, 26, 0.85);
+  border: 0.5px solid rgba(51, 170, 255, 0.25);
+  border-top: none;
+  border-bottom: none;
+}
+
+#type-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.35);
+  border: 0.5px solid rgba(100, 180, 255, 0.35);
+  color: white;
+  font-size: 15px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  outline: none;
+  caret-color: #3af;
+  transition: border-color 0.2s;
+}
+
+#type-input:focus {
+  border-color: #3af;
+  box-shadow: 0 0 0 2px rgba(51, 170, 255, 0.15);
+}
+
+#type-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+}
+
+#type-input.correct { border-color: #3af; }
+#type-input.wrong   { border-color: #e84a4a; }
+
+#fire-btn {
+  background: rgba(51, 170, 255, 0.15);
+  border: 0.5px solid #3af;
+  color: #3af;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+#fire-btn:hover  { background: rgba(51, 170, 255, 0.3); }
+#fire-btn:active { transform: scale(0.97); }
+
+/* ---------- Controls hint bar ---------- */
+#controls-bar {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(3, 11, 26, 0.85);
+  border: 0.5px solid rgba(51, 170, 255, 0.25);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+/* ---------- Asteroid highlight on match ---------- */
+.ast-shape.highlight {
+  outline: 2px solid rgba(51, 170, 255, 0.8);
+  outline-offset: 3px;
+}
